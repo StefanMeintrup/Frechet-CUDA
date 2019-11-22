@@ -28,7 +28,7 @@ your packages might be outdated and that can lead to unexpected errors.
   * chmod +x download_data.sh
   * ./download_data.sh
 8) Go to the py folder and run the code:
-  * python3 <file>
+  * python3 test.py
 			
 			
 			
