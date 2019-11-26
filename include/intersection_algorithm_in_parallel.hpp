@@ -10,7 +10,7 @@ class Cuda_intersection{
     const bool is_last = true;
     const bool is_not_last = false;
     public:
-        Cuda_intersection(const Curve& curve1, const Curve& curve2, distance_t *host_res_p);
+        Cuda_intersection(const Curve& curve1, const Curve& curve2, distance_t *host_res_p, distance_t eps);
 
         void intersection_interval_cuda(
             distance_t radius
@@ -51,6 +51,8 @@ class Cuda_intersection{
         coordinate_t *points_curve2_p;
 
         bool is_buffers_free = false;
+        
+        distance_t eps = 0.001;
 
 };
 

@@ -25,7 +25,7 @@ auto distance_cuda(const Curve &curve1, const Curve &curve2, distance_t ub, dist
 			std::vector<std::vector<distance_t>> reachable2(curve1.size(), std::vector<distance_t>(curve2.size()-1, infty));
 			
 			distance_t *host_results_p = static_cast<distance_t*>(malloc(2 * (2 * curve1.size() * curve2.size()) * sizeof(distance_t)));
-			Cuda_intersection cuda = Cuda_intersection(curve1, curve2, host_results_p);
+			Cuda_intersection cuda = Cuda_intersection(curve1, curve2, host_results_p, eps);
 
 			//Binary search over the feasible distances
 			while (ub - lb > eps) {
@@ -55,7 +55,7 @@ auto distance_cuda(const Curve &curve1, const Curve &curve2, distance_t ub, dist
 			std::vector<std::vector<distance_t>> reachable2(curve1.size(), std::vector<distance_t>(curve2.size()-1, infty));
 			
 			distance_t *host_results_p = static_cast<distance_t*>(malloc(2 * (2 * curve1.size() * curve2.size()) * sizeof(distance_t)));
-			Cuda_intersection cuda = Cuda_intersection(curve1, curve2, host_results_p);
+			Cuda_intersection cuda = Cuda_intersection(curve1, curve2, host_results_p, eps);
 	
 			//Binary search over the feasible distances
 			while (ub - lb > eps) {

@@ -10,9 +10,11 @@ namespace np = boost::python::numpy;
 namespace fc = Frechet::Continuous;
 namespace fd = Frechet::Discrete;
 
+const distance_t eps = 0.001;
+
 fc::Result compute_distance(const Curve &curve1, const Curve &curve2) {	
 	
-	const distance_t eps = 0.001;
+	//const distance_t eps = 0.001;
 	distance_t lb;
 	fd::Result ub;
 
@@ -31,7 +33,7 @@ fc::Result compute_distance(const Curve &curve1, const Curve &curve2) {
 
 fc::Result compute_distance_parallel(const Curve &curve1, const Curve &curve2) {	
 	
-	const distance_t eps = 0.001;
+	//const distance_t eps = 0.001;
 	distance_t lb;
 	fd::Result ub;
 
@@ -93,6 +95,8 @@ BOOST_PYTHON_MODULE(frechet_cuda)
 {
     Py_Initialize();
     np::initialize();
+    
+    scope().attr("epsilon") = eps;
 
 	class_<Curves>("Curves", init<>())
 		.def("add", static_cast<void (Curves::*)(const Curve&)>(&Curves::push_back))

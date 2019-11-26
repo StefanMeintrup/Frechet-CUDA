@@ -16,7 +16,7 @@ __global__ void cuda_kernel1_calculate_intervals(
 );
 
 
-Cuda_intersection::Cuda_intersection(const Curve& curve1,const Curve& curve2, distance_t *host_res_p) {
+Cuda_intersection::Cuda_intersection(const Curve& curve1,const Curve& curve2, distance_t *host_res_p, distance_t eps) : eps{eps} {
 
         cudaError_t cudaStatus;
         host_results_p = host_res_p;
@@ -240,7 +240,8 @@ __global__ void cuda_kernel1_calculate_intervals(
     curve_size_t *curve2_size_p,
     curve_size_t *point_dimensions_p,
     distance_t *radius_p,
-    bool *is_last
+    bool *is_last,
+    distance_t eps
 ){
 
   thread_id_t thread_id = threadIdx.x + blockIdx.x * blockDim.x;
@@ -302,7 +303,7 @@ __global__ void cuda_kernel1_calculate_intervals(
         }
 
 
-        const distance_t eps = 0.001 / 4;
+        //const distance_t eps = 0.001 / 4;
         const distance_t save_eps = 0.5 * eps;
         const distance_t save_eps_half = 0.25 * eps;
 
@@ -605,7 +606,8 @@ cudaError_t Cuda_intersection::intersection_interval_call_gpu(
                                                                                 dev_curve2_size_p[device_nbr],
                                                                                 dev_point_dimensions_p[device_nbr],
                                                                                 dev_radius_p[device_nbr],
-                                                                                dev_is_last_kernel_p[device_nbr]
+                                                                                dev_is_last_kernel_p[device_nbr],
+                                                                                eps
         );
     }
     
